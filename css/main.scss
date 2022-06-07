@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     box-sizing: border-box;
 }
@@ -30,9 +30,101 @@ body {
 }
 
 /* You will need to keep this class in production because is the class for every chart. If you don't use it, any chart won't work */
-.viz-container {
+.v_container {
     width: 100%;
     max-width: 768px;
     height: auto;
-    margin: 0 auto;
+    margin: 0 16px;
 }
+
+/* Inside v_container we will have blocks and elements. Also, sometime we will have modifiers for such elements 
+    (for example, if you have a legend for a subchart inside a viz instead of a legend for an entire viz*/
+
+/* 
+    GENERIC ELEMENTS 
+*/
+.v_title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.v_subtitle {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.v_selector {
+    width: 100%;
+    max-width: 350px;
+    height: 50px;
+
+    //Texto
+    font-size: 15px;
+    font-weight: 400;
+
+    .v_selector-item {
+
+    }
+}
+
+.v_legend {
+    width: 100%;
+    max-width: 350px;
+    
+    .v_legend-item {
+        font-size: 15px;
+        font-weight: 400;
+    }
+}
+
+.v_source, .v_note {
+    font-size: 12px;
+    font-weight: 300;
+
+    span {
+        font-weight: 700;
+    }
+}
+
+/*
+    BLOCKS > bl_title (title, subtitle, selector, maybe legends) - chart (chart) - bl_source (Source and/or notes)
+*/
+.v_bl_title {
+
+}
+
+/* Except figure 36, the rest of the figures have the same structure (¿?) */
+.v_chart {
+    width: 100%;
+    height: 200px;
+    background-color: burlywood;
+}
+
+.v_chart_fig36 {
+    width: 100%;
+    height: 200px;
+    background-color: burlywood;
+
+    //Here we will have different charts (two, with specific legends)
+
+}
+
+.v_bl_source {
+
+}
+
+
+
+/*
+    TOOLTIP
+    We will have only one tooltip (shared my every chart) because the charts are not going to be in an iframe. Instead,
+    the will be consumed as pure HTML
+*/
+.v_tooltip {
+
+}
+
+
+/*
+    MEDIA QUERIES
+*/
