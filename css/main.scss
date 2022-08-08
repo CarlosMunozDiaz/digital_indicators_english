@@ -97,7 +97,7 @@ body {
         font-size: 15px;
         font-weight: 400;
         font-style: normal;
-        line-height: 10px;
+        line-height: 1;
         height: 15px;
 
         padding-left: 20px;
@@ -129,11 +129,17 @@ body {
 
     /* Layout */
     &.column {
-        height: 100%;
+        align-self: stretch;
 
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: space-around;
+    }
+
+    &.row {
+        .v_leg_item {
+            margin-top: 4px;
+        }
     }
 }
 
@@ -196,7 +202,6 @@ body {
         &_title {
             font-size: 15px;
             font-weight: 700;
-            line-height: 10;
 
             margin-bottom: 8px;
         }
@@ -234,13 +239,13 @@ body {
     &_title {
         font-size: 12px;
         font-weight: 700;
-        line-height: 10px;
+        line-height: 1;
     }
 
     &_text {
         font-size: 10px;
         font-weight: 400;
-        line-height: 10px;
+        line-height: 1;
 
         margin-top: 6px;
     }
@@ -249,3 +254,10 @@ body {
 /*
     MEDIA QUERIES
 */
+@media only screen and (max-width: 545px) {
+    .v_bl_chart {
+        .v_chart--min {
+            width: 100%;
+        }
+    } 
+}
