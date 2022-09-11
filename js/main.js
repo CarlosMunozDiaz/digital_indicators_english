@@ -14,16 +14,16 @@ init48c();
 
 //FUNCTIONS
 function init2a() {
-    let url = '';
-    d3.csv('', function(data, error) {
+    let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1296035760&single=true&output=csv';
+    d3.csv(url, function(data, error) {
         if (error) throw error;
-
+        console.log(data);
     });
 }
 
 function init2b() {
-    let url = '';
-    d3.csv('', function(data, error) {
+    let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1296035760&single=true&output=csv';
+    d3.csv(url, function(data, error) {
         if (error) throw error;
         
     });
