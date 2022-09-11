@@ -11,14 +11,14 @@ body {
     box-sizing: border-box;
 }
 
-.container {
+/* We only use these two classes with the purpose to separate charts. You can remove it in production */
+.preproduction_container {
     width: 100%;
     max-width: 768px;
     margin: 0 auto;
 }
 
-/* We only use this class with the purpose to separate charts. You can remove it in production */
-.separator {
+.preproduction_separator {
     margin: 16px 0px;
     padding: 8px;
     background-color: azure;
@@ -29,186 +29,295 @@ body {
     }
 }
 
-/* You will need to keep this class in production because is the class for every chart. If you don't use it, any chart won't work */
+/* You will need to keep this class in production because is the class for every chart. 
+    If you don't use it, any chart won't work */
 .v_container {
+    box-sizing: border-box;
     width: 100%;
     max-width: 768px;
     height: auto;
 }
 
 /* Inside v_container we will have blocks and elements. Also, sometime we will have modifiers for such elements 
-    (for example, if you have a legend for a subchart inside a viz instead of a legend for an entire viz*/
+    (for example, if you have a legend for a subchart inside a viz instead of a legend for an entire viz */
 
-/* 
-    GENERIC ELEMENTS 
-*/
-.v_title {
-    font-size: 18px;
-    font-weight: 700;
-}
 
-.v_subtitle {
-    font-size: 15px;
-    font-weight: 400;
-}
-
-.v_selector {
-    //Layout
-    width: 100%;
-    max-width: 350px;
-    height: 50px;
-    margin: 0px;
-
-    //Styles
-    background: #F1F1F1;
-    border-radius: 86px;
-    padding: 8px 16px;
-
-    //Texto
-    font-size: 15px;
-    font-weight: 400;
-
-    //Flecha por defecto
-    -moz-appearance:none; /* Firefox */
-    -webkit-appearance:none; /* Safari and Chrome */
-    appearance:none;
-
-    //Flecha de sustitución
-    background-image: url("../sel_arrow.svg");
-    background-repeat: no-repeat;
-    background-position-x: calc(100% - 16px);
-    background-position-y: 21px;
-}
-
-.v_leg {
-    width: 100%;
-    //max-width: 350px;
-
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    
-    .v_leg_item {
-        position: relative;
-        display: flex;
-        align-items: center;
-
-        font-size: 15px;
-        font-weight: 400;
-        font-style: normal;
-        line-height: 1;
-        height: 15px;
-
-        padding-left: 20px;
-        margin-right: 16px;
-
-        &::before {
-            position: absolute;
-            content: '';
-            top: 0;
-            left: 0;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background-color: #ccc;
-        }
-
-        &.leg--first::before {
-            background-color: red;
-        }
-
-        &.leg--second::before {
-            background-color: yellow;
-        }
-
-        &.leg--third::before {
-            background-color: blue;
-        }
-    }
-
-    /* Layout */
-    &.column {
-        max-width: 350px;
-        align-self: stretch;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-    }
-
-    &.row {
-        display: flex;
-        justify-content: flex-end;
-
-        margin-top: 8px;
-
-        .v_leg_item {
-            margin-top: 4px;
-        }
-    }
-}
-
-.v_source, .v_note {
-    font-size: 12px;
-    font-weight: 300;
-
-    span {
+/* V_BL-TITLE BLOCK WITH TITLE AND SUBTITLE MODULES */
+.v_bl-title {
+    .v_title {
+        font-size: 18px;
         font-weight: 700;
     }
-}
-
-.v_note {
-    margin-top: 8px;
-}
-
-/*
-    BLOCKS > bl_title (title, subtitle, selector, maybe legends) - chart (chart) - bl_source (Source and/or notes)
-*/
-.one_block { /* Lo dejamos sin nada, de momento */
     
+    .v_subtitle {
+        font-size: 15px;
+        font-weight: 400;
+    }
 }
 
-.two_blocks {
-    display: flex;
-    flex-direction: column;
-}
-
-/* Opciones dentro de múltiples bloques - v_leg cuando es 'single' está arriba */
-.v_t_sel {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.v_leg_sel {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
+/* V_BL-LOGICS BLOCK WITH DIFFERENT DISTRIBUTIONS WITH LEGEND, SELECTOR AND BUTTONS MODULES */
+.v_bl-logic {
     margin-top: 12px;
+
+    /* BLOCK DISPOSITIONS */
+    &.multiple { /* Legend + Select OR legend + Buttons */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-top: 12px;
+    }
+
+    /* ELEMENTS */
+    .v_legend {
+        width: 100%;
+        //max-width: 350px;
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        
+        .v_leg_item {
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            font-size: 15px;
+            font-weight: 400;
+            font-style: normal;
+            line-height: 1;
+            height: 15px;
+
+            padding-left: 20px;
+            margin-right: 16px;
+
+            &::before {
+                position: absolute;
+                content: '';
+                top: 0;
+                left: 0;
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                background-color: #ccc;
+            }
+
+            &.leg--first::before {
+                background-color: red;
+            }
+
+            &.leg--second::before {
+                background-color: yellow;
+            }
+
+            &.leg--third::before {
+                background-color: blue;
+            }
+        }
+
+        /* Layout */
+        &.column {
+            max-width: 350px;
+            align-self: stretch;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+    }
+
+    .v_select {
+        //Layout
+        width: 100%;
+        max-width: 296px;
+        height: 50px;
+        margin: 0px;
+
+        //Styles
+        background: #F1F1F1;
+        border-radius: 86px;
+        padding: 8px 16px;
+
+        //Texto
+        font-size: 15px;
+        font-weight: 400;
+
+        //Flecha por defecto
+        -moz-appearance:none; /* Firefox */
+        -webkit-appearance:none; /* Safari and Chrome */
+        appearance:none;
+
+        //Flecha de sustitución
+        background-image: url("../media/sel_arrow.svg");
+        background-repeat: no-repeat;
+        background-position-x: calc(100% - 16px);
+        background-position-y: 21px;
+    }
+
+    .v_buttons {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 296px;
+
+        /* BUTTON LAYOUT */
+        .btn {
+            width: 88px;
+            height: 50px;
+
+            background: #fff;
+            border: 1px solid #d6d6d6;
+            border-radius: 2px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* BUTTON TEXT */
+            font-size: 14px;
+            color: #262626;
+
+            &.active {
+                background: #262626;
+                color: #fff;
+            }
+        }
+    }
 }
 
-/* Except figure 36, the rest of the figures have the same structure (¿?) */
+/* V_CHART BLOCK AND MODULE - Except figure 36, the rest of the figures have the same structure (¿?) */
 .v_chart {
     width: 100%;
+    //height: auto;
     height: 200px;
-    margin-top: 16px;
+
+    margin-top: 8px;
+
+    //Figura 2b - Disperssion chart
+    &-disperssion {
+        margin-top: 8px;
+        .v_axis-y {
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+        .v_chart {
+            margin-top: 0px;
+        }
+        .v_axis-x {
+            font-size: 14px;
+            text-align: right;
+            margin-top: 3px;
+        }
+    }
+
+    //Figura 35
+    &-special {
+        width: 100%;
+        height: auto;
+        height: 200px;
+
+        margin-top: 12px;
+
+        display: flex;
+        justify-content: space-between;
+
+        .v_bl-viz {
+            width: 50;
+
+            &:nth-of-type(3), &:nth-of-type(4) {
+                margin-top: 8px;
+            }
+
+            .v_title_35 {
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+            .v_legend_35 {
+                margin-top: 4px;
+
+                width: 100%;
+
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+        
+                .v_leg_item {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+
+                    font-size: 15px;
+                    font-weight: 400;
+                    font-style: normal;
+                    line-height: 1;
+                    height: 15px;
+
+                    padding-left: 20px;
+                    margin-right: 16px;
+
+                    &::before {
+                        position: absolute;
+                        content: '';
+                        top: 0;
+                        left: 0;
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 50%;
+                        background-color: #ccc;
+                    }
+
+                    &.leg--first::before {
+                        background-color: red;
+                    }
+
+                    &.leg--second::before {
+                        background-color: yellow;
+                    }
+
+                    &.leg--third::before {
+                        background-color: blue;
+                    }
+                }
+            }
+
+            .v_chart_35 {
+                width: 100%;
+                height: auto;
+
+                margin-top: 4px;
+            }
+        }
+    }
 }
 
-.v_bl_source {
-    margin-top: 16px;
+/* V_FOOTER BLOCK WITH SOURCE AND NOTE MODULES */
+.v_bl-footer {
+    margin-top: 8px;
+
+    .v_source, .v_note {
+        font-size: 12px;
+        font-weight: 400;
+    
+        span {
+            font-weight: 700;
+        }
+    }
+    
+    .v_note {
+        margin-top: 4px;
+    }
 }
 
 /*
-    TOOLTIP
-    We will have only one tooltip (shared my every chart) because the charts are not going to be in an iframe. Instead,
-    the will be consumed as pure HTML
+    TOOLTIP > We will have only one tooltip (shared my every chart) because the charts are not going to be in an 
+    iframe. Instead, the will be consumed as pure HTML
 */
 .v_tooltip {
     /* Layout */
     box-sizing: border-box;
-    max-width: 150px;
-    padding: 8px;
+    max-width: 160px;
+    padding: 4px 8px;
 
     /* Estilos */
     background-color: #f4f4f4;
@@ -232,10 +341,32 @@ body {
 /*
     MEDIA QUERIES
 */
-@media only screen and (max-width: 545px) {
-    .v_bl_chart {
-        .v_chart--min {
-            width: 100%;
+@media only screen and (max-width: 475px) {
+    .v_container {
+        padding: 0px 16px; /* Check how we are going to implement these charts and keep or remove this padding */
+    }
+
+    .v_bl-logic.multiple {
+        flex-direction: column;
+        //A lo mejor debemos tocar justify-content o align-items
+
+        div:nth-of-type(2) {
+            margin-top: 6px;
         }
-    } 
+    }
+
+    .v_chart-special {
+        flex-direction: column;
+        justify-content: center;
+
+        .v_bl-viz {
+            width: 100%;
+            max-width: 440px;
+
+            &:nth-of-type(2), &:nth-of-type(3), &:nth-of-type(4) {
+                margin-top: 8px;
+            }
+        }
+
+    }
 }
