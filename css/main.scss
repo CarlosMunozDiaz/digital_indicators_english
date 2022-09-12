@@ -144,6 +144,7 @@ body {
         background: #F1F1F1;
         border-radius: 86px;
         padding: 8px 16px;
+        outline: none;
 
         //Texto
         font-size: 15px;
@@ -362,8 +363,16 @@ body {
         flex-direction: column;
         //A lo mejor debemos tocar justify-content o align-items
 
+        &.multiple {
+            align-items: flex-start;
+        }
+
         .v_buttons, .v_select {
             margin-top: 8px;
+        }
+
+        .v_select {
+            max-width: none;
         }
     }
 

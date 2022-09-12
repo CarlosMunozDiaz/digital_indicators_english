@@ -9,6 +9,16 @@ init42b();
 init48a();
 init48b();
 init48c();
+if(window.innerWidth < 475) {
+    removeColumnLegendCss();
+}
+
+function removeColumnLegendCss() {
+    let columnElements = document.getElementsByClassName('column');
+    for(let i = 0; i < columnElements.length; i++) {
+        columnElements[i].classList.remove('column');
+    }
+}
 
 //FUNCTIONS
 function init2a() {
