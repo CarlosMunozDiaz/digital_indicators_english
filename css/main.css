@@ -295,7 +295,7 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
 	.v_bl-logic.multiple .v_select {
 	  max-width: none;
 	}
-	.v_legend.column {
+	.v_bl-logic .v_legend.column {
 		max-width: none;
 		flex-direction: row;
 		flex-wrap: wrap;
