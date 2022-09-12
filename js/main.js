@@ -252,7 +252,9 @@ function init48b() {
             .append("path")
             .attr('class', 'line')
             .attr("fill", "none")
-            .attr("stroke", 'red')
+            .attr("stroke", function(d, i) {
+                return colors[i];
+            })
             .attr("stroke-width", 2)
             .attr('d', function(d) {
                 return line(d.data);
