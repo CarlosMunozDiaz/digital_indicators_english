@@ -15,6 +15,7 @@ if(window.innerWidth < 475) {
 
 function removeColumnLegendCss() {
     let columnElements = document.getElementsByClassName('column');
+    console.log(columnElements);
     for(let i = 0; i < columnElements.length; i++) {
         columnElements[i].classList.remove('column');
     }
