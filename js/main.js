@@ -163,7 +163,7 @@ function init48a() {
 function init48b() {
     //Variables
     let chartBlock = d3.select('#v_fig48b'), chart, x_pre, x_final, y_pre, y_final, line, paths;
-    let width, height, margin = {top: 10, right: 5, bottom: 15, left: 25};
+    let width, height, margin = {top: 10, right: 5, bottom: 20, left: 25};
     let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=404906190&single=true&output=csv';
     d3.csv(url, function(error, data) {
         if (error) throw error;
