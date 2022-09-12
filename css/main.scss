@@ -59,13 +59,17 @@ body {
 
 /* V_BL-LOGICS BLOCK WITH DIFFERENT DISTRIBUTIONS WITH LEGEND, SELECTOR AND BUTTONS MODULES */
 .v_bl-logic {
-    margin-top: 16px;
+    margin-top: 12px;
 
     /* BLOCK DISPOSITIONS */
     &.multiple { /* Legend + Select OR legend + Buttons */
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        .v_select {
+            margin-top: 0px;
+        }
     }
 
     /* ELEMENTS */
@@ -90,6 +94,8 @@ body {
 
             padding-left: 20px;
             margin-right: 16px;
+
+            margin-top: 4px;
 
             &::before {
                 position: absolute;
@@ -132,6 +138,7 @@ body {
         max-width: 296px;
         height: 50px;
         margin: 0px;
+        margin-top: 4px;
 
         //Styles
         background: #F1F1F1;
@@ -356,7 +363,7 @@ body {
         //A lo mejor debemos tocar justify-content o align-items
 
         .v_buttons, .v_select {
-            margin-top: 6px;
+            margin-top: 8px;
         }
     }
 
