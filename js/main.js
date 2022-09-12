@@ -103,7 +103,7 @@ function init48c() {
         console.log(data);
 
         //Listener
-        selectElement.addEventListener('click', function(e) {
+        selectElement.addEventListener('change', function(e) {
             console.log(e.target.selected);
         });
         
