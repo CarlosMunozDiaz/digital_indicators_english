@@ -185,7 +185,7 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
   }
   .v_chart-special .v_bl-viz {
 	width: calc(50% - 8px);
-	height: 320px;
+	height: auto;
 	background: lightcoral;
   }
   .v_chart-special .v_bl-viz:nth-of-type(3), .v_chart-special .v_bl-viz:nth-of-type(4) {
@@ -235,7 +235,7 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
   }
   .v_chart-special .v_bl-viz .v_chart_35 {
 	width: 100%;
-	height: auto;
+	height: 320px;
 	margin-top: 4px;
   }
   /* V_FOOTER BLOCK WITH SOURCE AND NOTE MODULES */
