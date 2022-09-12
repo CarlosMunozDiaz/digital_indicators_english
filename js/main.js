@@ -171,7 +171,7 @@ function init48b() {
         //DATA
         let innerData = data.map(function(d) {
             return {
-                year: d.Year,
+                Year: d.Year,
                 'Brazil': +d['Brazil'],
                 'Argentina': +d['Argentina'],
                 'Chile': +d['Chile'],
@@ -183,7 +183,7 @@ function init48b() {
         let nestedData = keys.map(function(item) {
             let aux = [];
             innerData.map(function(d) {
-                aux.push({'year':d.Year, 'value': d[item]});
+                aux.push({'Year':d.Year, 'value': d[item]});
             });
             return {'key': item, 'data': aux}; 
         });
