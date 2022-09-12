@@ -109,15 +109,23 @@ body {
             }
 
             &.leg--first::before {
-                background-color: red;
+                background-color: rgb(16, 80, 153);
             }
 
             &.leg--second::before {
-                background-color: yellow;
+                background-color: rgb(50, 105, 167);
             }
 
             &.leg--third::before {
-                background-color: blue;
+                background-color: rgb(84, 130, 182);
+            }
+
+            &.leg--fourth::before {
+                background-color: rgb(118, 155, 196);
+            }
+
+            &.leg--fifth::before {
+                background-color: rgb(186, 205, 225);
             }
         }
 
