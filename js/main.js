@@ -29,8 +29,8 @@ function init2a() {
         
         //Listener
         selectElement.addEventListener('change', function(e) {
-            alert("Chart 2a > " + e.target.options[e.target.selectedIndex]);
-            //updateChart(e.target.options[e.target.selectedIndex])
+            alert("Chart 2a > " + e.target.options[e.target.selectedIndex].value);
+            //updateChart(e.target.options[e.target.selectedIndex].value)
         });
     });
 }
@@ -71,8 +71,8 @@ function init16_18() {
         
         //Listener
         selectElement.addEventListener('change', function(e) {
-            alert("Chart 16-17-18 > " + e.target.options[e.target.selectedIndex]);
-            //updateChart(e.target.options[e.target.selectedIndex])
+            alert("Chart 16-17-18 > " + e.target.options[e.target.selectedIndex].value);
+            //updateChart(e.target.options[e.target.selectedIndex].value)
         });
     });
 }
@@ -129,8 +129,8 @@ function init42b() {
         
         //Listener
         selectElement.addEventListener('change', function(e) {
-            alert("Chart 42b > " + e.target.options[e.target.selectedIndex]);
-            //updateChart(e.target.options[e.target.selectedIndex])
+            alert("Chart 42b > " + e.target.options[e.target.selectedIndex].value);
+            //updateChart(e.target.options[e.target.selectedIndex].value)
         });
     });
 }
@@ -143,8 +143,8 @@ function init48a() {
 
         //Listener
         selectElement.addEventListener('change', function(e) {
-            alert("Chart 48a > " + e.target.options[e.target.selectedIndex]);
-            //updateChart(e.target.options[e.target.selectedIndex])
+            alert("Chart 48a > " + e.target.options[e.target.selectedIndex].value);
+            //updateChart(e.target.options[e.target.selectedIndex].value)
         });
     });
 }
@@ -166,8 +166,8 @@ function init48c() {
 
         //Listener
         selectElement.addEventListener('change', function(e) {
-            alert("Chart 48c > " + e.target.options[e.target.selectedIndex]);
-            //updateChart(e.target.options[e.target.selectedIndex])
+            alert("Chart 48c > " + e.target.options[e.target.selectedIndex].value);
+            //updateChart(e.target.options[e.target.selectedIndex].value)
         });
     });
 }
