@@ -200,7 +200,7 @@ body {
 .v_chart {
     width: 100%;
     //height: auto;
-    height: 200px;
+    height: 380px;
     background: lightcoral;
 
     margin-top: 12px;
@@ -235,7 +235,7 @@ body {
 
         .v_bl-viz {
             width: calc(50% - 8px);
-            height: 200px;
+            height: 320px;
             background: lightcoral;
 
             &:nth-of-type(3), &:nth-of-type(4) {

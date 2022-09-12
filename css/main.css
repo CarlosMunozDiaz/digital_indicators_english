@@ -156,7 +156,7 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
   /* V_CHART BLOCK AND MODULE - Except figure 36, the rest of the figures have the same structure (¿?) */
   .v_chart {
 	width: 100%;
-	height: 200px;
+	height: 380px;
 	background: lightcoral;
 	margin-top: 12px;
   }
@@ -185,7 +185,7 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
   }
   .v_chart-special .v_bl-viz {
 	width: calc(50% - 8px);
-	height: 200px;
+	height: 320px;
 	background: lightcoral;
   }
   .v_chart-special .v_bl-viz:nth-of-type(3), .v_chart-special .v_bl-viz:nth-of-type(4) {
