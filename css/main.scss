@@ -52,20 +52,20 @@ body {
     .v_subtitle {
         font-size: 15px;
         font-weight: 400;
+
+        margin-top: 2px;
     }
 }
 
 /* V_BL-LOGICS BLOCK WITH DIFFERENT DISTRIBUTIONS WITH LEGEND, SELECTOR AND BUTTONS MODULES */
 .v_bl-logic {
-    margin-top: 12px;
+    margin-top: 16px;
 
     /* BLOCK DISPOSITIONS */
     &.multiple { /* Legend + Select OR legend + Buttons */
         display: flex;
         justify-content: space-between;
         align-items: center;
-
-        margin-top: 12px;
     }
 
     /* ELEMENTS */
@@ -192,12 +192,13 @@ body {
     width: 100%;
     //height: auto;
     height: 200px;
+    background: lightred;
 
-    margin-top: 8px;
+    margin-top: 12px;
 
     //Figura 2b - Disperssion chart
     &-disperssion {
-        margin-top: 8px;
+        margin-top: 12px;
         .v_axis-y {
             font-size: 14px;
             margin-bottom: 3px;
@@ -222,6 +223,7 @@ body {
 
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
 
         .v_bl-viz {
             width: 50%;
@@ -295,7 +297,7 @@ body {
 
 /* V_FOOTER BLOCK WITH SOURCE AND NOTE MODULES */
 .v_bl-footer {
-    margin-top: 8px;
+    margin-top: 12px;
 
     .v_source, .v_note {
         font-size: 12px;
