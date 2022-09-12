@@ -15,7 +15,7 @@ body {
     margin: 0 auto;
 }
 .preproduction_separator {
-    margin: 24px 0px;
+    margin: 48px 0px 24px 0px;
     padding: 8px;
     background-color: azure;
 }
@@ -169,7 +169,6 @@ body {
 .v_chart-special {
     width: 100%;
     height: auto;
-    height: 200px;
     margin-top: 12px;
     display: flex;
     justify-content: space-between;
@@ -177,6 +176,8 @@ body {
 }
 .v_chart-special .v_bl-viz {
     width: 50%;
+    height: 200px;
+    background: lightcoral;
 }
 .v_chart-special .v_bl-viz:nth-of-type(3), .v_chart-special .v_bl-viz:nth-of-type(4) {
     margin-top: 8px;
