@@ -27,6 +27,7 @@ function init2a() {
     let selectElement = document.getElementById('select_2a');
     d3.csv(url, function(error, data) {
         if (error) throw error;
+        console.log("2a", data);
         
         //Listener
         selectElement.addEventListener('change', function(e) {
@@ -44,6 +45,7 @@ function init2b() {
 
     d3.csv(url, function(error, data) {
         if (error) throw error;
+        console.log("2b", data);
         
         //Listener
         for(let i = 0; i < selectBtns.length; i++) {
@@ -69,7 +71,8 @@ function init16_18() {
     let selectElement = document.getElementById('select_16_18');
     d3.csv(url, function(error, data) {
         if (error) throw error;
-        
+        console.log("16_18", data);
+
         //Listener
         selectElement.addEventListener('change', function(e) {
             alert("Chart 16-17-18 > " + e.target.options[e.target.selectedIndex].value);
@@ -82,7 +85,7 @@ function init35() {
     let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1437038791&single=true&output=csv';
     d3.csv(url, function(error, data) {
         if (error) throw error;
-        
+        console.log("35", data);
     });
 }
 
@@ -93,7 +96,8 @@ function init10() {
     let currentBtn = selectBtns[0];
     d3.csv(url, function(error, data) {
         if (error) throw error;
-
+        console.log("10", data);
+        
         //Listener
         for(let i = 0; i < selectBtns.length; i++) {
             selectBtns[i].addEventListener('click', function(e) {
@@ -118,7 +122,7 @@ function init42a() {
     let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1639180365&single=true&output=csv';
     d3.csv(url, function(error, data) {
         if (error) throw error;
-        
+        console.log("42a", data);
     });
 }
 
@@ -127,7 +131,8 @@ function init42b() {
     let selectElement = document.getElementById('select_42b');
     d3.csv(url, function(error, data) {
         if (error) throw error;
-        
+        console.log("42b", data);
+
         //Listener
         selectElement.addEventListener('change', function(e) {
             alert("Chart 42b > " + e.target.options[e.target.selectedIndex].value);
@@ -141,6 +146,7 @@ function init48a() {
     let selectElement = document.getElementById('select_48a');
     d3.csv(url, function(error, data) {
         if (error) throw error;
+        console.log("48a", data);
 
         //Listener
         selectElement.addEventListener('change', function(e) {
@@ -154,7 +160,7 @@ function init48b() {
     let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=404906190&single=true&output=csv';
     d3.csv(url, function(error, data) {
         if (error) throw error;
-        
+        console.log("48b", data);
     });
 }
 
@@ -164,6 +170,7 @@ function init48c() {
     let selectElement = document.getElementById('select_48c');
     d3.csv(url, function(error, data) {
         if (error) throw error;
+        console.log("48c", data);
 
         //Listener
         selectElement.addEventListener('change', function(e) {
