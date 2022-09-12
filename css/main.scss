@@ -73,73 +73,6 @@ body {
     }
 
     /* ELEMENTS */
-    .v_legend {
-        width: 100%;
-        //max-width: 350px;
-
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        
-        .v_leg_item {
-            position: relative;
-            display: flex;
-            align-items: center;
-
-            font-size: 15px;
-            font-weight: 400;
-            font-style: normal;
-            line-height: 1;
-            height: 15px;
-
-            padding-left: 20px;
-            margin-right: 16px;
-
-            margin-top: 4px;
-
-            &::before {
-                position: absolute;
-                content: '';
-                top: 0;
-                left: 0;
-                width: 15px;
-                height: 15px;
-                border-radius: 50%;
-                background-color: #ccc;
-            }
-
-            &.leg--first::before {
-                background-color: rgb(16, 80, 153);
-            }
-
-            &.leg--second::before {
-                background-color: rgb(50, 105, 167);
-            }
-
-            &.leg--third::before {
-                background-color: rgb(84, 130, 182);
-            }
-
-            &.leg--fourth::before {
-                background-color: rgb(118, 155, 196);
-            }
-
-            &.leg--fifth::before {
-                background-color: rgb(186, 205, 225);
-            }
-        }
-
-        /* Layout */
-        &.column {
-            max-width: 350px;
-            align-self: stretch;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-        }
-    }
-
     .v_select {
         //Layout
         width: 100%;
@@ -206,6 +139,74 @@ body {
     }
 }
 
+/* V_LEGEND > INSIDE V_BL-LOGIC AND, ALSO, INSIDE THE SPECIAL CHART */
+.v_legend {
+    width: 100%;
+    //max-width: 350px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    
+    .v_leg_item {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        font-size: 15px;
+        font-weight: 400;
+        font-style: normal;
+        line-height: 1;
+        height: 15px;
+
+        padding-left: 20px;
+        margin-right: 16px;
+
+        margin-top: 4px;
+
+        &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #ccc;
+        }
+
+        &.leg--first::before {
+            background-color: rgb(16, 80, 153);
+        }
+
+        &.leg--second::before {
+            background-color: rgb(50, 105, 167);
+        }
+
+        &.leg--third::before {
+            background-color: rgb(84, 130, 182);
+        }
+
+        &.leg--fourth::before {
+            background-color: rgb(118, 155, 196);
+        }
+
+        &.leg--fifth::before {
+            background-color: rgb(186, 205, 225);
+        }
+    }
+
+    /* Layout */
+    &.column {
+        max-width: 350px;
+        align-self: stretch;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+}
+
 /* V_CHART BLOCK AND MODULE - Except figure 36, the rest of the figures have the same structure (¿?) */
 .v_chart {
     width: 100%;
@@ -255,54 +256,6 @@ body {
             .v_title_35 {
                 font-size: 18px;
                 font-weight: 700;
-            }
-
-            .v_legend_35 {
-                margin-top: 4px;
-
-                width: 100%;
-
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: flex-start;
-        
-                .v_leg_item {
-                    position: relative;
-                    display: flex;
-                    align-items: center;
-
-                    font-size: 15px;
-                    font-weight: 400;
-                    font-style: normal;
-                    line-height: 1;
-                    height: 15px;
-
-                    padding-left: 20px;
-                    margin-right: 16px;
-
-                    &::before {
-                        position: absolute;
-                        content: '';
-                        top: 0;
-                        left: 0;
-                        width: 15px;
-                        height: 15px;
-                        border-radius: 50%;
-                        background-color: #ccc;
-                    }
-
-                    &.leg--first::before {
-                        background-color: red;
-                    }
-
-                    &.leg--second::before {
-                        background-color: yellow;
-                    }
-
-                    &.leg--third::before {
-                        background-color: blue;
-                    }
-                }
             }
 
             .v_chart_35 {
