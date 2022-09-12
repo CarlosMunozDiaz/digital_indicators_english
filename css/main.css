@@ -225,15 +225,25 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
 	border-radius: 50%;
 	background-color: #ccc;
   }
-  .v_chart-special .v_bl-viz .v_legend_35 .v_leg_item.leg--first::before {
-	background-color: red;
-  }
-  .v_chart-special .v_bl-viz .v_legend_35 .v_leg_item.leg--second::before {
-	background-color: yellow;
-  }
-  .v_chart-special .v_bl-viz .v_legend_35 .v_leg_item.leg--third::before {
-	background-color: blue;
-  }
+  	.v_bl-logic .v_legend .v_leg_item.leg--first::before {
+		background-color: rgb(16, 80, 153);
+	}
+
+	.v_bl-logic .v_legend .v_leg_item.leg--second::before {
+		background-color: rgb(50, 105, 167);
+	}
+
+	.v_bl-logic .v_legend .v_leg_item.leg--third::before {
+		background-color: rgb(84, 130, 182);
+	}
+
+	.v_bl-logic .v_legend .v_leg_item.leg--fourth::before {
+		background-color: rgb(118, 155, 196);
+	}
+
+	.v_bl-logic .v_legend .v_leg_item.leg--fifth::before {
+		background-color: rgb(186, 205, 225);
+	}
   .v_chart-special .v_bl-viz .v_chart_35 {
 	width: 100%;
 	height: 320px;
