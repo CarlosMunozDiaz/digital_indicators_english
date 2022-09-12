@@ -104,7 +104,8 @@ function init48c() {
 
         //Listener
         selectElement.addEventListener('change', function(e) {
-            console.log(e.target.selected);
+            console.log(e.target.selectedIndex);
+            console.log(e.target.options[selectedIndex]);
         });
         
     });

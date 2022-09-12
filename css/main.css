@@ -175,7 +175,7 @@ body {
     flex-wrap: wrap;
 }
 .v_chart-special .v_bl-viz {
-    width: 50%;
+    width: calc(50% - 8px);
     height: 200px;
     background: lightcoral;
 }
