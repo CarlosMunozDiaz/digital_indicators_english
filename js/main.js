@@ -1,5 +1,3 @@
-console.log("Funciona el script");
-
 //INIT FUNCTIONS
 init2a();
 init2b();
@@ -15,6 +13,7 @@ init48c();
 //FUNCTIONS
 function init2a() {
     let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1296035760&single=true&output=csv';
+    let selectElement = document.getElementById('select_2a');
     d3.csv(url, function(data, error) {
         if (error) throw error;
         console.log(data);
@@ -23,6 +22,10 @@ function init2a() {
 
 function init2b() {
     let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1296035760&single=true&output=csv';
+    let selectBtnBlock = document.getElementById('buttons_2b');
+    let selectBtns = selectBtnBlock.getElementsByClassName('btn');
+    let currentBtn = 'Both';
+
     d3.csv(url, function(data, error) {
         if (error) throw error;
         
@@ -30,39 +33,44 @@ function init2b() {
 }
 
 function init16_18() {
-    let url = '';
-    d3.csv('', function(data, error) {
+    let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=0&single=true&output=csv';
+    let selectElement = document.getElementById('select_16_18');
+    d3.csv(url, function(data, error) {
         if (error) throw error;
         
     });
 }
 
 function init35() {
-    let url = '';
-    d3.csv('', function(data, error) {
+    let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1437038791&single=true&output=csv';
+    d3.csv(url, function(data, error) {
         if (error) throw error;
         
     });
 }
 
 function init10() {
-    let url = '';
-    d3.csv('', function(data, error) {
+    let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=355194318&single=true&output=csv';
+    let selectBtnBlock = document.getElementById('buttons_10');
+    let selectBtns = selectBtnBlock.getElementsByClassName('btn');
+    let currentBtn = 'STEM';
+    d3.csv(url, function(data, error) {
         if (error) throw error;
         
     });
 }
 
 function init42a() {
-    let url = '';
-    d3.csv('', function(data, error) {
+    let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1639180365&single=true&output=csv';
+    d3.csv(url, function(data, error) {
         if (error) throw error;
         
     });
 }
 
 function init42b() {
-    let url = '';
+    let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=846839345&single=true&output=csv';
+    let selectElement = document.getElementById('select_42b');
     d3.csv('', function(data, error) {
         if (error) throw error;
         
@@ -71,6 +79,7 @@ function init42b() {
 
 function init48a() {
     let url = '';
+    let selectElement = document.getElementById('select_48a');
     d3.csv('', function(data, error) {
         if (error) throw error;
         
@@ -78,17 +87,24 @@ function init48a() {
 }
 
 function init48b() {
-    let url = '';
-    d3.csv('', function(data, error) {
+    let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=404906190&single=true&output=csv';
+    d3.csv(url, function(data, error) {
         if (error) throw error;
         
     });
 }
 
+//Aquí jugaremos con display: none de los distintos SVG y con la visualización del tooltip
 function init48c() {
-    let url = '';
-    d3.csv('', function(data, error) {
+    let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1192825969&single=true&output=csv';
+    let selectElement = document.getElementById('select_48c');
+    d3.csv(url, function(data, error) {
         if (error) throw error;
+
+        //Listener
+        selectElement.addEventListener('click', function(e) {
+            console.log(e.target);
+        });
         
     });
 }
