@@ -374,6 +374,13 @@ body {
         .v_select {
             max-width: none;
         }
+
+        .v_legend.column {
+            max-width: none;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
     }
 
     .v_chart-special {

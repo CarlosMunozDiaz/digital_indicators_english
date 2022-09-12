@@ -295,6 +295,12 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
 	.v_bl-logic.multiple .v_select {
 	  max-width: none;
 	}
+	.v_legend.column {
+		max-width: none;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+	}
 	.v_chart-special {
 	  flex-direction: column;
 	  justify-content: center;
