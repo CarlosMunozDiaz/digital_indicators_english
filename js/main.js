@@ -219,8 +219,8 @@ function init48b() {
 
         //Y Axis
         y_pre = d3.scaleLinear()
-            .domain([0, 100])
-            .range([height, 10]);
+            .domain([0, 15])
+            .range([height, 0]);
 
         y_final = function(svg){
             svg.call(d3.axisLeft(y_pre).ticks(3))
