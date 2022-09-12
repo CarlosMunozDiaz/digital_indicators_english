@@ -19,7 +19,7 @@ body {
 }
 
 .preproduction_separator {
-    margin: 16px 0px;
+    margin: 24px 0px;
     padding: 8px;
     background-color: azure;
 
@@ -157,8 +157,10 @@ body {
     .v_buttons {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         width: 100%;
         max-width: 296px;
+        height: 50px;
 
         /* BUTTON LAYOUT */
         .btn {
@@ -222,7 +224,7 @@ body {
         justify-content: space-between;
 
         .v_bl-viz {
-            width: 50;
+            width: 50%;
 
             &:nth-of-type(3), &:nth-of-type(4) {
                 margin-top: 8px;

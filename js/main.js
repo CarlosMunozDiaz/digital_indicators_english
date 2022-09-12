@@ -104,7 +104,7 @@ function init48c() {
 
         //Listener
         selectElement.addEventListener('click', function(e) {
-            console.log(e.target);
+            console.log(e.target.selected);
         });
         
     });

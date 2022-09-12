@@ -15,7 +15,7 @@ body {
     margin: 0 auto;
 }
 .preproduction_separator {
-    margin: 16px 0px;
+    margin: 24px 0px;
     padding: 8px;
     background-color: azure;
 }
@@ -121,8 +121,10 @@ body {
 .v_bl-logic .v_buttons {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
     max-width: 296px;
+    height: 50px;
    /* BUTTON LAYOUT */
 }
 .v_bl-logic .v_buttons .btn {
@@ -172,7 +174,7 @@ body {
     justify-content: space-between;
 }
 .v_chart-special .v_bl-viz {
-    width: 50;
+    width: 50%;
 }
 .v_chart-special .v_bl-viz:nth-of-type(3), .v_chart-special .v_bl-viz:nth-of-type(4) {
     margin-top: 8px;
