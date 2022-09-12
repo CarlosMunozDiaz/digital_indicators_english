@@ -269,13 +269,13 @@ body {
     .v_container {
         padding: 0px 16px;
        /* Check how we are going to implement these charts and keep or remove this padding */
-   }
+    }
     .v_bl-logic.multiple {
         flex-direction: column;
-   }
-    .v_bl-logic.multiple div:nth-of-type(2) {
+    }
+    .v_bl-logic.multiple .v_buttons, .v_bl-logic.multiple .v_select {
         margin-top: 6px;
-   }
+    }
     .v_chart-special {
         flex-direction: column;
         justify-content: center;

@@ -355,7 +355,7 @@ body {
         flex-direction: column;
         //A lo mejor debemos tocar justify-content o align-items
 
-        div:nth-of-type(2) {
+        .v_buttons, .v_select {
             margin-top: 6px;
         }
     }
