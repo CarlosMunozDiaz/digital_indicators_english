@@ -82,8 +82,8 @@ function init10() {
 
         //Listener
         for(let i = 0; i < selectBtns.length; i++) {
-            selectBtns[i].addEventListener('click', function(e, i) {
-                console.log(i);
+            selectBtns[i].addEventListener('click', function(e) {
+                console.log(e.target, e.target.textContent);
                 if(e.target.textContent != currentBtn) {
                     currentBtn = e.target.textContent;
                     alert("Chart 2b - Button > ", currentBtn);
