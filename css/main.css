@@ -138,6 +138,7 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
   .v_bl-logic .v_buttons .btn {
 	width: 88px;
 	height: 36px;
+	margin: 0px;
 	background: #fff;
 	border: 1px solid #d6d6d6;
 	border-radius: 2px;
@@ -291,6 +292,9 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
 	}
 	.v_bl-logic.multiple .v_buttons, .v_bl-logic.multiple .v_select {
 	  margin-top: 8px;
+	}
+	.v_bl-logic.multiple .v_buttons {
+		justify-content: space-between;
 	}
 	.v_bl-logic.multiple .v_select {
 	  max-width: none;
