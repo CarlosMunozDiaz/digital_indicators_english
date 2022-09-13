@@ -115,13 +115,23 @@ function init35() {
 
             //COLOMBIA
             let chartBlockCo = d3.select('#v_fig35_3'), chartCo, x_preCo, x_finalCo, y_preCo, y_finalCo;
+            initChart35_Grouped(dataColombia, chartBlockCo, chartCo, x_preCo, x_finalCo, y_preCo, y_finalCo);
 
             //UE27
             let chartBlockUE = d3.select('#v_fig35_4'), chartUE, x_preUE, x_finalUE, y_preUE, y_finalUE;
+            initChart35_Grouped(dataUE, chartBlockUE, chartUE, x_preUE, x_finalUE, y_preUE, y_finalUE);
 
 
             ////HELPERS
             function initChart35_Simple(data, block, chart, x_pre, x_final, y_pre, y_final) {
+                chart = chartBlock
+                    .append("svg")
+                        .attr("width", width + margin.left + margin.right)
+                        .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                        .attr("transform",
+                            "translate(" + margin.left + "," + margin.top + ")");
+
                 x_pre = d3.scaleBand()
                 .domain(data.map(function(d) { return d.Tipo; }))
                 .range([0, width]);
@@ -183,6 +193,89 @@ function init35() {
                     .attr("height", function (d, i) {
                         return height - y_pre(+d.Valor);                                        
                     });
+            }
+
+            function initChart35_Grouped(data, block, chart, x_pre, x_final, y_pre, y_final) {
+                chart = chartBlock
+                    .append("svg")
+                        .attr("width", width + margin.left + margin.right)
+                        .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                        .attr("transform",
+                            "translate(" + margin.left + "," + margin.top + ")");
+
+                let subgroups = data.columns.slice(1);
+                let tipos = d3.map(data, function(d){return(d.Tipo)}).keys();
+
+                x_pre = d3.scaleBand()
+                    .domain(tipos)
+                    .range([0, width])
+                    .padding([0.2]);
+
+                x_final = function(g){
+                    g.call(d3.axisBottom(x_pre).tickFormat(function(d) { return d; }))
+                    g.call(function(g){g.selectAll('.tick line').remove()})
+                    g.call(function(g){g.select('.domain').remove()})
+                    g.call(function(g){
+                        g.selectAll('.tick text')
+                            .call(wrap, x_pre.bandwidth());
+                    });
+                }
+    
+                chart.append("g")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(x_final);
+
+                y_pre = d3.scaleLinear()
+                    .domain([0, 42])
+                    .range([ height, 0 ]);
+
+                y_final = function(svg){
+                    svg.call(d3.axisLeft(y_pre).ticks(4).tickFormat(function(d) { return d; }))
+                    svg.call(function(g){
+                        g.selectAll('.tick line')
+                            .attr('class', function(d,i) {
+                                if (d == 0) {
+                                    return 'line-special';
+                                }
+                            })
+                            .attr('x1', '0%')
+                            .attr('x2', `${width}`)
+                    })
+                    svg.call(function(g){g.select('.domain').remove()});
+                }
+    
+                chart.append("g")
+                    .call(y_final);
+
+                let xSubgroup = d3.scaleBand()
+                    .domain(subgroups)
+                    .range([0, x_pre.bandwidth()])
+                    .padding([0.05]);
+                
+                let color = d3.scaleOrdinal()
+                    .domain(subgroups)
+                    .range([colors[0], colors[1], colors[2]]);
+
+                chart.append("g")
+                    .selectAll("g")
+                    .data(data)
+                    .enter()
+                    .append("g")
+                    .attr("transform", function(d) { return "translate(" + x(d.tipos) + ",0)"; })
+                    .selectAll("rect")
+                    .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+                    .enter()
+                    .append("rect")
+                    .attr("fill", function(d) { return color(d.key); })
+                    .attr("y", function (d) { return y_pre(0); })
+                    .attr("x", function(d) { return xSubgroup(d.key); })
+                    .attr("width", xSubgroup.bandwidth())
+                    .transition()
+                    .duration(2000)
+                    .attr("y", function(d) { return y_pre(d.value); })
+                    .attr("height", function(d) { return height - y_pre(d.value); })
+                    
             }
         });
 }
