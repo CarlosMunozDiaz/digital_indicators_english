@@ -86,12 +86,21 @@ function init16_18() {
 }
 
 function init35() {
-    let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1437038791&single=true&output=csv';
-    d3.csv(url, function(error, data) {
-        if (error) throw error;
-        //Desarrollo de los cuatro gráficos
+    let url_brasil = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1437038791&single=true&output=csv';
+    let url_chile = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1435753595&single=true&output=csv';
+    let url_colombia = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=217869386&single=true&output=csv';
+    let url_ue = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=962648905&single=true&output=csv';
 
-    });
+    d3.queue()
+        .defer(d3.csv, url_brasil)
+        .defer(d3.csv, url_chile)
+        .defer(d3.csv, url_colombia)
+        .defer(d3.csv, url_ue)
+        .await(function(error, dataBrasil, dataChile, dataColombia, dataUE) {
+            if (error) throw error;
+
+            //Desarrollo de los cuatro gráficos
+        });
 }
 
 function init10() {
