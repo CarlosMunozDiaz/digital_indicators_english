@@ -104,8 +104,8 @@ function init35() {
             //Desarrollo de los cuatro gráficos
             //BRASIL | Establecemos ancho y alto por defecto
             let chartBlockBr = d3.select('#v_fig35_1'), chartBr, x_preBr, x_finalBr, y_preBr, y_finalBr;
-            width = parseInt(chartBlock.style('width')) - margin.left - margin.right,
-            height = parseInt(chartBlock.style('height')) - margin.top - margin.bottom;
+            width = parseInt(chartBlockBr.style('width')) - margin.left - margin.right,
+            height = parseInt(chartBlockBr.style('height')) - margin.top - margin.bottom;
 
             initChart35_Simple(dataBrasil, chartBlockBr, chartBr, x_preBr, x_finalBr, y_preBr, y_finalBr);
 
@@ -124,7 +124,7 @@ function init35() {
 
             ////HELPERS
             function initChart35_Simple(data, block, chart, x_pre, x_final, y_pre, y_final) {
-                chart = chartBlock
+                chart = block
                     .append("svg")
                         .attr("width", width + margin.left + margin.right)
                         .attr("height", height + margin.top + margin.bottom)
@@ -139,11 +139,7 @@ function init35() {
                 x_final = function(g){
                     g.call(d3.axisBottom(x_pre).tickFormat(function(d) { return d; }))
                     g.call(function(g){g.selectAll('.tick line').remove()})
-                    g.call(function(g){g.select('.domain').remove()})
-                    g.call(function(g){
-                        g.selectAll('.tick text')
-                            .call(wrap, x_pre.bandwidth());
-                    });
+                    g.call(function(g){g.select('.domain').remove()});
                 }
 
                 chart.append("g")
@@ -182,9 +178,9 @@ function init35() {
                         return y_pre(0);
                     })
                     .attr("x", function (d, i) {
-                        return x_pre(d.Tipo) + x_pre.bandwidth() / 4;                                       
+                        return x_pre(d.Tipo) + (x_pre.bandwidth() / 2) - 15;                                       
                     })            
-                    .attr("width", x_pre.bandwidth() / 2)
+                    .attr("width", '30px')
                     .transition()
                     .duration(2000)
                     .attr("y", function (d, i) {
@@ -196,7 +192,7 @@ function init35() {
             }
 
             function initChart35_Grouped(data, block, chart, x_pre, x_final, y_pre, y_final) {
-                chart = chartBlock
+                chart = block
                     .append("svg")
                         .attr("width", width + margin.left + margin.right)
                         .attr("height", height + margin.top + margin.bottom)
@@ -262,9 +258,9 @@ function init35() {
                     .data(data)
                     .enter()
                     .append("g")
-                    .attr("transform", function(d) { return "translate(" + x(d.tipos) + ",0)"; })
+                    .attr("transform", function(d) { return "translate(" + x_pre(d.Tipo) + ",0)"; })
                     .selectAll("rect")
-                    .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+                    .data(function(d) { return subgroups.map(function(key) { return {key: key, value: +d[key]}; }); })
                     .enter()
                     .append("rect")
                     .attr("fill", function(d) { return color(d.key); })
@@ -274,8 +270,7 @@ function init35() {
                     .transition()
                     .duration(2000)
                     .attr("y", function(d) { return y_pre(d.value); })
-                    .attr("height", function(d) { return height - y_pre(d.value); })
-                    
+                    .attr("height", function(d) { return height - y_pre(d.value); })   
             }
         });
 }
