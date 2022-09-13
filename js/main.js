@@ -86,6 +86,8 @@ function init16_18() {
 }
 
 function init35() {
+    //Variables
+    let width, height, margin = {top: 10, right: 12.5, bottom: 50, left: 35};
     let url_brasil = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1437038791&single=true&output=csv';
     let url_chile = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1435753595&single=true&output=csv';
     let url_colombia = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=217869386&single=true&output=csv';
@@ -100,6 +102,88 @@ function init35() {
             if (error) throw error;
 
             //Desarrollo de los cuatro gráficos
+            //BRASIL | Establecemos ancho y alto por defecto
+            let chartBlockBr = d3.select('#v_fig35_1'), chartBr, x_preBr, x_finalBr, y_preBr, y_finalBr;
+            width = parseInt(chartBlock.style('width')) - margin.left - margin.right,
+            height = parseInt(chartBlock.style('height')) - margin.top - margin.bottom;
+
+            initChart35_Simple(dataBrasil, chartBlockBr, chartBr, x_preBr, x_finalBr, y_preBr, y_finalBr);
+
+            //CHILE
+            let chartBlockCh = d3.select('#v_fig35_2'), chartCh, x_preCh, x_finalCh, y_preCh, y_finalCh;
+            initChart35_Simple(dataChile, chartBlockCh, chartCh, x_preCh, x_finalCh, y_preCh, y_finalCh);
+
+            //COLOMBIA
+            let chartBlockCo = d3.select('#v_fig35_3'), chartCo, x_preCo, x_finalCo, y_preCo, y_finalCo;
+
+            //UE27
+            let chartBlockUE = d3.select('#v_fig35_4'), chartUE, x_preUE, x_finalUE, y_preUE, y_finalUE;
+
+
+            ////HELPERS
+            function initChart35_Simple(data, block, chart, x_pre, x_final, y_pre, y_final) {
+                x_pre = d3.scaleBand()
+                .domain(data.map(function(d) { return d.Tipo; }))
+                .range([0, width]);
+
+                x_final = function(g){
+                    g.call(d3.axisBottom(x_pre).tickFormat(function(d) { return d; }))
+                    g.call(function(g){g.selectAll('.tick line').remove()})
+                    g.call(function(g){g.select('.domain').remove()})
+                    g.call(function(g){
+                        g.selectAll('.tick text')
+                            .call(wrap, x_pre.bandwidth());
+                    });
+                }
+
+                chart.append("g")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(x_final);
+
+                y_pre = d3.scaleLinear()
+                    .domain([0,20])
+                    .range([height, 0]);
+
+                y_final = function(svg){
+                    svg.call(d3.axisLeft(y_pre).ticks(4).tickFormat(function(d) { return d; }))
+                    svg.call(function(g){
+                        g.selectAll('.tick line')
+                            .attr('class', function(d,i) {
+                                if (d == 0) {
+                                    return 'line-special';
+                                }
+                            })
+                            .attr('x1', '0%')
+                            .attr('x2', `${width}`)
+                    })
+                    svg.call(function(g){g.select('.domain').remove()});
+                }
+
+                chart.append("g")
+                    .call(y_final);
+
+                chart.selectAll(".bar")
+                    .data(data)
+                    .enter()
+                    .append("rect")
+                    .attr('class', function(d, i) { return `bar-35 bar-35-${i}`; })
+                    .style('fill', colors[0])
+                    .attr("y", function (d) {
+                        return y_pre(0);
+                    })
+                    .attr("x", function (d, i) {
+                        return x_pre(d.Tipo) + x_pre.bandwidth() / 4;                                       
+                    })            
+                    .attr("width", x_pre.bandwidth() / 2)
+                    .transition()
+                    .duration(2000)
+                    .attr("y", function (d, i) {
+                        return y_pre(+d.Valor);                                        
+                    })
+                    .attr("height", function (d, i) {
+                        return height - y_pre(+d.Valor);                                        
+                    });
+            }
         });
 }
 
