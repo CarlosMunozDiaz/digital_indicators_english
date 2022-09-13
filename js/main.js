@@ -131,16 +131,108 @@ function init42a() {
 }
 
 function init42b() {
+    //VARIABLES
+    let chartBlock = d3.select('#v_fig42b'), chart, x_pre, x_final, y_pre, y_final, color;
+    let width, height, margin = {top: 10, right: 5, bottom: 20, left: 25};
+    let groups = ['certificates','sites'];
     let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=846839345&single=true&output=csv';
     let selectElement = document.getElementById('select_42b');
     d3.csv(url, function(error, data) {
         if (error) throw error;
-        console.log("42b", data);
+
+        //INIT VISUALIZATION VARIABLES
+        let innerData = data.filter(function(item) {
+            if(item.Year == '2020') {
+                return item;
+            }
+        });
+
+        width = parseInt(chartBlock.style('width')) - margin.left - margin.right,
+        height = parseInt(chartBlock.style('height')) - margin.top - margin.bottom;
+
+        chart = chartBlock
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")");
+        
+        x_pre = d3.scaleBand()
+            .domain(d3.map(innerData, function(d){ return d.Country_EN; }).keys())
+            .range([0, width])
+            .padding(0.4);
+        
+        x_final = function(g) {
+            g.call(d3.axisBottom(x_pre));
+            g.call(function(g){g.selectAll('.tick line').remove()});
+            g.call(function(g){g.select('.domain').remove()});
+        }
+                
+        chart.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(x_final);
+
+        y_pre = d3.scaleLinear()
+            .domain([0, 680])
+            .range([height, 0]);
+
+        y_final = function(g) {
+            g.call(d3.axisLeft(y_pre).ticks(5));
+            g.selectAll('.tick line')
+                .attr('class', function(d,i) {
+                    if (d == 0) {
+                        return 'line-special';
+                    }
+                })
+                .attr('x1', '0')
+                .attr('x2', '' + width +'');
+        }
+
+        chart.append("g")
+            .attr("class", "yaxis")
+            .call(y_final);
+
+        color = d3.scaleOrdinal()
+            .domain(grupos)
+            .range([colors[0], colors[1]]);
+
+        let stackedData = d3.stack()
+            .keys(color.domain())
+            (innerData);
+        
+        chart.append("g")
+            .attr('class','chart-42b')
+            .selectAll("g")
+            .data(stackedData)
+            .enter()
+            .append("g")
+            .attr("fill", function(d) { return color(d.key); })
+            .attr('class', function(d) {
+                return 'rect-padre- ' + d.key;
+            })
+            .selectAll("rect")
+            .data(function(d) { return d; })
+            .enter()
+            .append("rect")
+            .attr('class', 'rect-42b-')
+            .attr("x", function(d) { return x(d.data.Country_EN); })
+            .attr("y", function(d) { return y(0); })
+            .attr("height", function(d) { return 0; })
+            .attr("width",x.bandwidth())
+            .transition()
+            .duration(2000)
+            .attr("y", function(d) { return y(d[1]); })
+            .attr("height", function(d) { return y(d[0]) - y(d[1]); });
+
+        function updateChart(year) {
+            console.log(year);
+        }
 
         //Listener
         selectElement.addEventListener('change', function(e) {
             alert("Chart 42b > " + e.target.options[e.target.selectedIndex].value);
-            //updateChart(e.target.options[e.target.selectedIndex].value)
+            updateChart(e.target.options[e.target.selectedIndex].value)
         });
     });
 }
