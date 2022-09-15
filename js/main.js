@@ -755,7 +755,7 @@ function wrap(text, width) {
       while (word = words.pop()) {
         line.push(word)
         tspan.text(line.join(" "))
-        if (tspan.node().getComputedTextLength() > width) {
+        if (tspan.node().getComputedTextLength() > (width + 10)) {
           line.pop()
           tspan.text(line.join(" "))
           line = [word]
