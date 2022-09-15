@@ -200,7 +200,7 @@ function init35() {
                         .attr("transform",
                             "translate(" + margin.left + "," + margin.top + ")");
 
-                let subgroups = data.columns.slice(1);
+                let subgroups = data.columns.slice(2);
                 let tipos = d3.map(data, function(d){return(d.Tipo)}).keys();
 
                 x_pre = d3.scaleBand()
