@@ -432,7 +432,7 @@ function init16_18() {
                 .attr("transform", function(d) { return "translate(" + x_pre_0(d['industry_group_name']) + ",0)"; });
 
             slice.selectAll(".rect")
-                .data(function(d) { console.log(d); return columnas.map(function(key) { return {key: key, value: +d[key]}; }); })
+                .data(function(d) { return columnas.map(function(key) { return {key: key, value: +d[key]}; }); })
                 .transition()
                 .duration(2000)
                 .attr("y", function(d) { return y_pre(d.value); })
@@ -811,12 +811,173 @@ function init10() {
 }
 
 function init42a() {
-    let chartBlock = d3.select('#v_fig42a'), chart, x_pre_Y, x_pre_T, x_final_Y, x_final_T, y_pre, y_final, color;
-    let width, height, margin = {top: 10, right: 5, bottom: 85, left: 35};
+    let chartBlock = d3.select('#v_fig42a'), chart, x_pre_Y, x_pre_T_2010, x_pre_T_2020, x_final_Y, x_final_T_2010, x_final_T_2020, y_pre, y_final, auxColors, slice_2010, slice_2020;
+    let width, height, margin = {top: 10, right: 5, bottom: 45, left: 30};
     let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=1639180365&single=true&output=csv';
     d3.csv(url, function(error, data) {
         if (error) throw error;
-        console.log("42a", data);
+
+        let tipos = d3.map(data, function(d) { return d.Type; }).keys();
+        tipos = tipos.reverse();
+        let years = ['2010', '2020'];
+        let columnas = ['OECD','LAC'];
+
+        width = parseInt(chartBlock.style('width')) - margin.left - margin.right,
+        height = parseInt(chartBlock.style('height')) - margin.top - margin.bottom;
+
+        chart = chartBlock
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")");
+
+        //Eje X - Años
+        x_pre_Y = d3.scaleBand()
+            .range([0, width])
+            .domain(years);
+
+        x_final_Y = function(g){
+            g.call(d3.axisBottom(x_pre_Y));
+            g.call(function(g){g.selectAll('.tick line').remove()});
+            g.call(function(g){g.select('.domain').remove()});
+        }
+
+        //Eje X - Tipos
+        x_pre_T_2010 = d3.scaleBand()
+            .range([x_pre_Y.bandwidth(), 0])
+            .paddingInner(0.25)
+            .paddingOuter(0.5)
+            .domain(tipos);
+
+        x_final_T_2010 = function(g){
+            g.call(d3.axisBottom(x_pre_T_2010));
+            g.call(function(g){g.selectAll('.tick line').remove()});
+            g.call(function(g){g.select('.domain').remove()});
+        }
+
+        x_pre_T_2020 = d3.scaleBand()
+            .range([width, x_pre_Y.bandwidth()])
+            .paddingInner(0.25)
+            .paddingOuter(0.5)
+            .domain(tipos);
+
+        x_final_T_2020 = function(g){
+            g.call(d3.axisBottom(x_pre_T_2020));
+            g.call(function(g){g.selectAll('.tick line').remove()});
+            g.call(function(g){g.select('.domain').remove()});
+        }
+
+        chart.append("g")
+            .attr("transform", "translate(0," + (height + 20) + ")")
+            .call(x_final_Y);
+
+        chart.append("g")
+            .attr("transform", "translate(0," + (height) + ")")
+            .call(x_final_T_2010);
+
+        chart.append("g")
+            .attr("transform", "translate(0," + (height) + ")")
+            .call(x_final_T_2020);
+
+        //Eje Y
+        y_pre = d3.scaleLinear()
+            .domain([0, 1])
+            .range([height, 0]);
+
+        y_final = function(svg){
+            svg.call(d3.axisLeft(y_pre).ticks(3))
+            svg.call(function(g){
+                g.selectAll('.tick line')
+                    .attr('class', function(d,i) {
+                        if (d == 0) {
+                            return 'line-special';
+                        }
+                    })
+                    .attr("x1", '0')
+                    .attr("x2", '' + width + '')
+            })
+            svg.call(function(g){g.select('.domain').remove()});
+        }      
+
+        chart.append("g")
+            .attr('class','y_axis')
+            .call(y_final);
+
+        auxColors = d3.scaleOrdinal()
+            .range([colors[0], colors[1]])
+            .domain(columnas);
+
+        //Diferenciar datos para 2010 y 2020
+        let auxData_2010 = data.filter(function(d) {
+            if (d.Year == '2010') {
+                return d;
+            }
+        });
+        
+        let auxData_2020 = data.filter(function(d) {
+            if(d.Year == '2020') {
+                return d;
+            }
+        });
+
+        //Inicialización
+        slice_2010 = chart.selectAll(".slice")
+            .data(auxData_2010)
+            .enter()
+            .append("g")
+            .attr("class", "slice")
+            .attr("transform", function(d) { return "translate(" + x_pre_T_2010(d['Type']) + ",0)"; });
+
+        slice_2010.selectAll("rect")
+            .data(function(d) { return columnas.map(function(key) { return {key: key, value: +d[key]}; }); })
+            .enter()
+            .append("rect")
+            .attr('class', 'rect')
+            .attr("x", function(d, i) { 
+                if(i == 0) {
+                    return x_pre_T_2010.bandwidth() / 8;
+                } else {
+                    return (x_pre_T_2010.bandwidth() / 2) + (x_pre_T_2010.bandwidth() / 8);
+                }
+            })
+            .attr("y", function(d) { return y_pre(0); })
+            .attr("width", x_pre_T_2010.bandwidth() / 4)
+            .attr("height", function(d) { return height - y_pre(0); })
+            .attr("fill", function(d) { return auxColors(d.key); })
+            .transition()
+            .duration(2000)
+            .attr("y", function(d) { return y_pre(d.value); })
+            .attr("height", function(d) { return height - y_pre(d.value); });
+
+        slice_2020 = chart.selectAll(".slice_2")
+            .data(auxData_2020)
+            .enter()
+            .append("g")
+            .attr("class", "slice_2")
+            .attr("transform", function(d) { return "translate(" + x_pre_T_2020(d['Type']) + ",0)"; });
+
+        slice_2020.selectAll("rect")
+            .data(function(d) { return columnas.map(function(key) { return {key: key, value: +d[key]}; }); })
+            .enter()
+            .append("rect")
+            .attr('class', 'rect')
+            .attr("x", function(d, i) { 
+                if(i == 0) {
+                    return x_pre_T_2020.bandwidth() / 8;
+                } else {
+                    return (x_pre_T_2020.bandwidth() / 2) + (x_pre_T_2020.bandwidth() / 8);
+                }
+            })
+            .attr("y", function(d) { return y_pre(0); })
+            .attr("width", x_pre_T_2020.bandwidth() / 4)
+            .attr("height", function(d) { return height - y_pre(0); })
+            .attr("fill", function(d) { return auxColors(d.key); })
+            .transition()
+            .duration(2000)
+            .attr("y", function(d) { return y_pre(d.value); })
+            .attr("height", function(d) { return height - y_pre(d.value); });
     });
 }
 
@@ -943,7 +1104,7 @@ function init42b() {
                 .data(stackedData)
                 .attr("fill", function(d) { return color(d.key); })
                 .selectAll(".rect-42b")
-                .data(function(d) {console.log(d); return d; })
+                .data(function(d) { return d; })
                 .attr("x", function(d) { return x_pre(d.data.Country_EN); })
                 //.attr("y", function(d) { return y_pre(0); })
                 //.attr("height", function(d) { return 0; })
@@ -1085,7 +1246,6 @@ function init48b() {
             });
             return {'key': item, 'data': aux}; 
         });
-        console.log("48b", nestedData);
 
         //INIT VISUALIZATIONS VARIABLES
         width = parseInt(chartBlock.style('width')) - margin.left - margin.right,
