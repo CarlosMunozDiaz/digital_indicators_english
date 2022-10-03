@@ -140,6 +140,17 @@ function init2a() {
             .attr('r', 6)
             .attr('cx', function(d) { return x_pre(d.data.Country_EN) + x_pre.bandwidth() / 2; })
             .attr('cy', y_pre(0))
+            .on('mousemove', function(d,i,e) {
+                console.log(d);
+
+                //Tooltip
+                positionTooltip(window.event, tooltip);
+                getInTooltip(tooltip);
+            })
+            .on('mouseout', function(d,i,e) {
+                //Quitamos el tooltip
+                getOutTooltip(tooltip);
+            })
             .transition()
             .duration(2000)
             .attr('cy', (d) => { return y_pre(d[1]); });
@@ -261,6 +272,17 @@ function init2b() {
                 .attr("fill", function(d) { return auxColors(d.Region); })
                 .attr('r', 6)            
                 .attr('cx', (d) => {return x_pre(+d['GDP'])})
+                .on('mousemove', function(d,i,e) {
+                    console.log(d);
+    
+                    //Tooltip
+                    positionTooltip(window.event, tooltip);
+                    getInTooltip(tooltip);
+                })
+                .on('mouseout', function(d,i,e) {
+                    //Quitamos el tooltip
+                    getOutTooltip(tooltip);
+                })
                 .transition()
                 .ease(d3.easeBounce)
                 .duration(1750)
@@ -398,7 +420,9 @@ function init16_18() {
                 .data(auxData)
                 .enter()
                 .append("g")
-                .attr("class", "slice")
+                .attr("class", function(d) {
+                    return 'slice slice-' + d.industry_group_name_EN; //Regex
+                })
                 .attr("transform", function(d) { return "translate(" + x_pre_0(d['industry_group_name_EN']) + ",0)"; });
 
             slice.selectAll("rect")
@@ -411,6 +435,17 @@ function init16_18() {
                 .attr("width", x_pre_1.bandwidth())
                 .attr("height", function(d) { return height - y_pre(0); })
                 .attr("fill", function(d) { return auxColors(d.key); })
+                .on('mousemove', function(d,i,e) {
+                    console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+    
+                    //Tooltip
+                    positionTooltip(window.event, tooltip);
+                    getInTooltip(tooltip);
+                })
+                .on('mouseout', function(d,i,e) {
+                    //Quitamos el tooltip
+                    getOutTooltip(tooltip);
+                })
                 .transition()
                 .duration(2000)
                 .attr("y", function(d) { return y_pre(d.value); })
