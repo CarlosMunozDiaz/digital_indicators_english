@@ -311,7 +311,7 @@ function init16_18() {
     d3.csv(url, function(error, data) {
         if (error) throw error;
 
-        let industrias = d3.map(data, function(d) { return d.industry_group_name; }).keys();
+        let industrias = d3.map(data, function(d) { return d.industry_group_name_EN; }).keys();
         let columnas = ['disruptive_tech_skills','tech_skills'];
 
         width = parseInt(chartBlock.style('width')) - margin.left - margin.right,
@@ -399,7 +399,7 @@ function init16_18() {
                 .enter()
                 .append("g")
                 .attr("class", "slice")
-                .attr("transform", function(d) { return "translate(" + x_pre_0(d['industry_group_name']) + ",0)"; });
+                .attr("transform", function(d) { return "translate(" + x_pre_0(d['industry_group_name_EN']) + ",0)"; });
 
             slice.selectAll("rect")
                 .data(function(d) { return columnas.map(function(key) { return {key: key, value: +d[key]}; }); })
@@ -429,7 +429,7 @@ function init16_18() {
                 .enter()
                 .append("g")
                 .attr("class", "slice")
-                .attr("transform", function(d) { return "translate(" + x_pre_0(d['industry_group_name']) + ",0)"; });
+                .attr("transform", function(d) { return "translate(" + x_pre_0(d['industry_group_name_EN']) + ",0)"; });
 
             slice.selectAll(".rect")
                 .data(function(d) { return columnas.map(function(key) { return {key: key, value: +d[key]}; }); })
