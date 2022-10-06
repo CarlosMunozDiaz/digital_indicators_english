@@ -140,7 +140,7 @@ function init2a() {
             .attr('r', 6)
             .attr('cx', function(d) { return x_pre(d.data.Country_EN) + x_pre.bandwidth() / 2; })
             .attr('cy', y_pre(0))
-            .on('mousemove', function(d,i,e) {
+            .on('mouseenter mousemove', function(d,i,e) {
                 console.log(d);
 
                 //Tooltip
@@ -272,7 +272,7 @@ function init2b() {
                 .attr("fill", function(d) { return auxColors(d.Region); })
                 .attr('r', 6)            
                 .attr('cx', (d) => {return x_pre(+d['GDP'])})
-                .on('mousemove', function(d,i,e) {
+                .on('mouseenter mousemove', function(d,i,e) {
                     console.log(d);
     
                     //Tooltip
@@ -435,7 +435,7 @@ function init16_18() {
                 .attr("width", x_pre_1.bandwidth())
                 .attr("height", function(d) { return height - y_pre(0); })
                 .attr("fill", function(d) { return auxColors(d.key); })
-                .on('mousemove', function(d,i,e) {
+                .on('mouseenter mousemove', function(d,i,e) {
                     console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
     
                     //Tooltip
@@ -577,6 +577,17 @@ function init35() {
                         return x_pre(d.Tipo) + (x_pre.bandwidth() / 2) - 15;                                       
                     })            
                     .attr("width", '30px')
+                    .on('mouseenter mousemove', function(d,i,e) {
+                        console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+        
+                        //Tooltip
+                        positionTooltip(window.event, tooltip);
+                        getInTooltip(tooltip);
+                    })
+                    .on('mouseout', function(d,i,e) {
+                        //Quitamos el tooltip
+                        getOutTooltip(tooltip);
+                    })
                     .transition()
                     .duration(2000)
                     .attr("y", function (d, i) {
@@ -654,15 +665,32 @@ function init35() {
                     .data(data)
                     .enter()
                     .append("g")
+                    .attr('class', function(d) {
+                        return 'group group-' + d.Tipo;
+                    })
                     .attr("transform", function(d) { return "translate(" + x_pre(d.Tipo) + ",0)"; })
                     .selectAll("rect")
                     .data(function(d) { return subgroups.map(function(key) { return {key: key, value: +d[key]}; }); })
                     .enter()
                     .append("rect")
+                    .attr('class', function(d) {
+                        return 'bar bar-' + d.key;
+                    })
                     .attr("fill", function(d) { return color(d.key); })
                     .attr("y", function (d) { return y_pre(0); })
                     .attr("x", function(d) { return xSubgroup(d.key); })
                     .attr("width", xSubgroup.bandwidth())
+                    .on('mouseenter mousemove', function(d,i,e) {
+                        console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+        
+                        //Tooltip
+                        positionTooltip(window.event, tooltip);
+                        getInTooltip(tooltip);
+                    })
+                    .on('mouseout', function(d,i,e) {
+                        //Quitamos el tooltip
+                        getOutTooltip(tooltip);
+                    })
                     .transition()
                     .duration(2000)
                     .attr("y", function(d) { return y_pre(d.value); })
@@ -751,7 +779,7 @@ function init10() {
             .append("g")
             .attr("fill", function(d) { return color(d.key); })
             .attr('class', function(d) {
-                return 'rect-padre-10-' + d.key;
+                return 'rect-bl-10 rect-bl--10-' + d.key;
             })
             .selectAll("rect")
             .data(function(d) { return d; })
@@ -767,6 +795,17 @@ function init10() {
                 return y_pre(d.data.Country_EN) + y_pre.bandwidth() / 4;
             })  
             .attr("height", y_pre.bandwidth() / 2)
+            .on('mouseenter mousemove', function(d,i,e) {
+                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+
+                //Tooltip
+                positionTooltip(window.event, tooltip);
+                getInTooltip(tooltip);
+            })
+            .on('mouseout', function(d,i,e) {
+                //Quitamos el tooltip
+                getOutTooltip(tooltip);
+            })
             .transition()
             .duration(2000)
             .attr("x", function (d) { return x_pre(d[0]); })
@@ -822,6 +861,17 @@ function init10() {
                     return y_pre(d.data.Country_EN) + y_pre.bandwidth() / 4;
                 })  
                 .attr("height", y_pre.bandwidth() / 2)
+                .on('mouseenter mousemove', function(d,i,e) {
+                    console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+    
+                    //Tooltip
+                    positionTooltip(window.event, tooltip);
+                    getInTooltip(tooltip);
+                })
+                .on('mouseout', function(d,i,e) {
+                    //Quitamos el tooltip
+                    getOutTooltip(tooltip);
+                })
                 .transition()
                 .duration(2000)
                 .attr("x", function (d) { return x_pre(d[0]); })
@@ -875,8 +925,8 @@ function init42a() {
 
         x_final_Y = function(g){
             g.call(d3.axisBottom(x_pre_Y));
-            g.call(function(g){g.selectAll('.tick line').remove()});
             g.call(function(g){g.select('.domain').remove()});
+            g.call(function(g){g.selectAll('.tick line').remove()});
         }
 
         //Eje X - Tipos
@@ -962,14 +1012,18 @@ function init42a() {
             .data(auxData_2010)
             .enter()
             .append("g")
-            .attr("class", "slice")
+            .attr("class", function(d) {
+                return "slice-2010-" + d.Type;
+            })
             .attr("transform", function(d) { return "translate(" + x_pre_T_2010(d['Type']) + ",0)"; });
 
         slice_2010.selectAll("rect")
             .data(function(d) { return columnas.map(function(key) { return {key: key, value: +d[key]}; }); })
             .enter()
             .append("rect")
-            .attr('class', 'rect')
+            .attr('class', function(d) {
+                return 'group-2010-' + d.key;
+            })
             .attr("x", function(d, i) { 
                 if(i == 0) {
                     return x_pre_T_2010.bandwidth() / 8;
@@ -981,6 +1035,17 @@ function init42a() {
             .attr("width", x_pre_T_2010.bandwidth() / 4)
             .attr("height", function(d) { return height - y_pre(0); })
             .attr("fill", function(d) { return auxColors(d.key); })
+            .on('mouseenter mousemove', function(d,i,e) {
+                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+
+                //Tooltip
+                positionTooltip(window.event, tooltip);
+                getInTooltip(tooltip);
+            })
+            .on('mouseout', function(d,i,e) {
+                //Quitamos el tooltip
+                getOutTooltip(tooltip);
+            })
             .transition()
             .duration(2000)
             .attr("y", function(d) { return y_pre(d.value); })
@@ -990,14 +1055,18 @@ function init42a() {
             .data(auxData_2020)
             .enter()
             .append("g")
-            .attr("class", "slice_2")
+            .attr("class", function(d) {
+                return "slice-2020-" + d.Type;
+            })
             .attr("transform", function(d) { return "translate(" + x_pre_T_2020(d['Type']) + ",0)"; });
 
         slice_2020.selectAll("rect")
             .data(function(d) { return columnas.map(function(key) { return {key: key, value: +d[key]}; }); })
             .enter()
             .append("rect")
-            .attr('class', 'rect')
+            .attr('class', function(d) {
+                return 'group-2020-' + d.key;
+            })
             .attr("x", function(d, i) { 
                 if(i == 0) {
                     return x_pre_T_2020.bandwidth() / 8;
@@ -1009,6 +1078,17 @@ function init42a() {
             .attr("width", x_pre_T_2020.bandwidth() / 4)
             .attr("height", function(d) { return height - y_pre(0); })
             .attr("fill", function(d) { return auxColors(d.key); })
+            .on('mouseenter mousemove', function(d,i,e) {
+                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+
+                //Tooltip
+                positionTooltip(window.event, tooltip);
+                getInTooltip(tooltip);
+            })
+            .on('mouseout', function(d,i,e) {
+                //Quitamos el tooltip
+                getOutTooltip(tooltip);
+            })
             .transition()
             .duration(2000)
             .attr("y", function(d) { return y_pre(d.value); })
@@ -1118,6 +1198,17 @@ function init42b() {
             .attr("y", function(d) { return y_pre(0); })
             .attr("height", function(d) { return 0; })
             .attr("width",x_pre.bandwidth())
+            .on('mouseenter mousemove', function(d,i,e) {
+                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+
+                //Tooltip
+                positionTooltip(window.event, tooltip);
+                getInTooltip(tooltip);
+            })
+            .on('mouseout', function(d,i,e) {
+                //Quitamos el tooltip
+                getOutTooltip(tooltip);
+            })
             .transition()
             .duration(2000)
             .attr("y", function(d) { return y_pre(d[1]); })
@@ -1232,7 +1323,18 @@ function init48a() {
                 .attr("x", x_pre(0) )
                 .attr("y", function(d) { return y_pre(d.Type) + y_pre.bandwidth() / 4; })
                 .attr("width", x_pre(0))
-                .attr("height", y_pre.bandwidth() / 2 )
+                .attr("height", y_pre.bandwidth() / 2)
+                .on('mouseenter mousemove', function(d,i,e) {
+                    console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+    
+                    //Tooltip
+                    positionTooltip(window.event, tooltip);
+                    getInTooltip(tooltip);
+                })
+                .on('mouseout', function(d,i,e) {
+                    //Quitamos el tooltip
+                    getOutTooltip(tooltip);
+                })
                 .transition()
                 .duration(2000)
                 .attr("width", d => Math.abs(x_pre(d[country]) - x_pre(0)))
@@ -1351,6 +1453,17 @@ function init48b() {
             .attr("stroke-width", 2)
             .attr('d', function(d) {
                 return line(d.data);
+            })
+            .on('mouseenter mousemove', function(d,i,e) {
+                console.log(d); //Meter círculos en esta visualización
+
+                //Tooltip
+                positionTooltip(window.event, tooltip);
+                getInTooltip(tooltip);
+            })
+            .on('mouseout', function(d,i,e) {
+                //Quitamos el tooltip
+                getOutTooltip(tooltip);
             });
 
         paths.attr("stroke-dasharray", 768 + " " + 768)
