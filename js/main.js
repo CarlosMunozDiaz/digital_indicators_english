@@ -8,7 +8,6 @@ let colors = [
 ];
 let tooltip = d3.select('#chartsTooltip');
 
-
 //INIT FUNCTIONS
 init2a();
 init2b();
@@ -141,7 +140,12 @@ function init2a() {
             .attr('cx', function(d) { return x_pre(d.data.Country_EN) + x_pre.bandwidth() / 2; })
             .attr('cy', y_pre(0))
             .on('mouseenter mousemove', function(d,i,e) {
-                console.log(d);
+                //Texto en tooltip
+                let html = `<p class="v_tooltip-title">Fixed Broadband Value in ${d.data.Country_EN} in ${d.data.Year}</p>
+                            <p class="v_tooltip-text">Speed: ${d.data.Speed}MBPS</p>
+                            <p class="v_tooltip-text">GDP per capita: ${d.data.GDP}%</p>`;
+                
+                tooltip.html(html);
 
                 //Tooltip
                 positionTooltip(window.event, tooltip);
@@ -187,7 +191,7 @@ function init2a() {
         
         //Listener
         selectElement.addEventListener('change', function(e) {
-            updateChart(e.target.options[e.target.selectedIndex].value)
+            updateChart(e.target.options[e.target.selectedIndex].value);
         });
     });
 }
@@ -273,7 +277,12 @@ function init2b() {
                 .attr('r', 6)            
                 .attr('cx', (d) => {return x_pre(+d['GDP'])})
                 .on('mouseenter mousemove', function(d,i,e) {
-                    console.log(d);
+                    //Texto en tooltip
+                    let html = `<p class="v_tooltip-title">Fixed Broadband Value in ${d.Country_EN} (${d.Region}) in ${d.Year}</p>
+                        <p class="v_tooltip-text">Speed: ${d.Speed}MBPS</p>
+                        <p class="v_tooltip-text">GDP per capita: ${d.GDP}%</p>`;
+        
+                    tooltip.html(html);
     
                     //Tooltip
                     positionTooltip(window.event, tooltip);
@@ -436,7 +445,13 @@ function init16_18() {
                 .attr("height", function(d) { return height - y_pre(0); })
                 .attr("fill", function(d) { return auxColors(d.key); })
                 .on('mouseenter mousemove', function(d,i,e) {
-                    console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                    let key = d.key == 'tech_skills' ? 'Tech skills' : 'Disruptive tech skills';
+                    let sector = e[i].parentNode.classList.value.split(/\s(.*)/s)[1].split('-')[1];
+                    //Texto en tooltip
+                    let html = `<p class="v_tooltip-title">${country} - ${sector}</p>
+                        <p class="v_tooltip-text">${key}: ${d.value}</p>`;
+        
+                    tooltip.html(html);
     
                     //Tooltip
                     positionTooltip(window.event, tooltip);
@@ -578,7 +593,12 @@ function init35() {
                     })            
                     .attr("width", '30px')
                     .on('mouseenter mousemove', function(d,i,e) {
-                        console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                        //Texto en tooltip
+                        let pais = block.node().id == 'v_fig35_1' ? 'Brazil in 2019' : 'Chile in 2018';
+                        let html = `<p class="v_tooltip-title">Firms Using Big Data in ${pais}</p>
+                            <p class="v_tooltip-text">${d.Tipo}: ${d.Valor}</p>`;
+            
+                        tooltip.html(html);
         
                         //Tooltip
                         positionTooltip(window.event, tooltip);
@@ -681,7 +701,23 @@ function init35() {
                     .attr("x", function(d) { return xSubgroup(d.key); })
                     .attr("width", xSubgroup.bandwidth())
                     .on('mouseenter mousemove', function(d,i,e) {
-                        console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                        //Texto en tooltip
+                        let pais = '', tipo = '', sector = '';
+
+                        if(block.node().id == 'v_fig35_3') {
+                            pais = 'Colombia';
+                            tipo = d.key == 'proceso_analisis' ? 'Data analysis process' : d.key == 'ia' ? 'AI' : 'Big data';
+                            sector = e[i].parentNode.classList.value.split(/\s(.*)/s)[1].split('-')[1];
+                        } else {
+                            pais = 'the EU';
+                            tipo = d.key == 'ia_21' ? 'AI (in 2021)' : 'Big data (in 2019)';
+                            sector = e[i].parentNode.classList.value.split(/\s(.*)/s)[1].split('-')[1];
+                        }
+
+                        let html = `<p class="v_tooltip-title">Firms Using ${tipo} in ${pais}</p>
+                            <p class="v_tooltip-text">${sector} Firms: ${d.value}</p>`;
+            
+                        tooltip.html(html);
         
                         //Tooltip
                         positionTooltip(window.event, tooltip);
@@ -796,7 +832,13 @@ function init10() {
             })  
             .attr("height", y_pre.bandwidth() / 2)
             .on('mouseenter mousemove', function(d,i,e) {
-                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                //Texto en tooltip
+                let html = `<p class="v_tooltip-title">${d.data.Country_EN} (${d.data.Region})</p>
+                    <p class="v_tooltip-text">Tertiary Graduates in STEM Fields of Study: ${d.data.stem}%</p>
+                    <p class="v_tooltip-text">Tertiary Graduates in SEM Fields of Study${d.data.sem}%</p>
+                    <p class="v_tooltip-text">Tertiary Graduates in T (TIC) Fields of Study${d.data.t_tic}%</p>`;
+    
+                tooltip.html(html);
 
                 //Tooltip
                 positionTooltip(window.event, tooltip);
@@ -1036,7 +1078,12 @@ function init42a() {
             .attr("height", function(d) { return height - y_pre(0); })
             .attr("fill", function(d) { return auxColors(d.key); })
             .on('mouseenter mousemove', function(d,i,e) {
-                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                //Texto en tooltip
+                let tipo = e[i].parentNode.classList.value.split('-')[2];
+                let html = `<p class="v_tooltip-title">${d.key} in 2010</p>
+                    <p class="v_tooltip-text">${tipo}: ${d.value}</p>`;
+    
+                tooltip.html(html);
 
                 //Tooltip
                 positionTooltip(window.event, tooltip);
@@ -1079,7 +1126,12 @@ function init42a() {
             .attr("height", function(d) { return height - y_pre(0); })
             .attr("fill", function(d) { return auxColors(d.key); })
             .on('mouseenter mousemove', function(d,i,e) {
-                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                //Texto en tooltip
+                let tipo = e[i].parentNode.classList.value.split('-')[2];
+                let html = `<p class="v_tooltip-title">${d.key} in 2020</p>
+                    <p class="v_tooltip-text">${tipo}: ${d.value}</p>`;
+    
+                tooltip.html(html);
 
                 //Tooltip
                 positionTooltip(window.event, tooltip);
@@ -1199,7 +1251,13 @@ function init42b() {
             .attr("height", function(d) { return 0; })
             .attr("width",x_pre.bandwidth())
             .on('mouseenter mousemove', function(d,i,e) {
-                console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                //Texto en tooltip
+                let html = `<p class="v_tooltip-title">${d.data.Country_EN} in ${d.data.Year}</p>
+                    <p class="v_tooltip-text">Certificates: ${d.data.certificates}</p>
+                    <p class="v_tooltip-text">Sites: ${d.data.sites}</p>
+                    <p class="v_tooltip-text">Sum of both: ${parseInt(d.data.certificates)+parseInt(d.data.sites)}</p>`;
+    
+                tooltip.html(html);
 
                 //Tooltip
                 positionTooltip(window.event, tooltip);
@@ -1313,7 +1371,7 @@ function init48a() {
         let country = 'Argentina';
         initChart(country);
 
-        function initChart(country) {
+        function initChart(country2) {
             chart.selectAll(".bar")
                 .data(data)
                 .enter()
@@ -1325,7 +1383,46 @@ function init48a() {
                 .attr("width", x_pre(0))
                 .attr("height", y_pre.bandwidth() / 2)
                 .on('mouseenter mousemove', function(d,i,e) {
-                    console.log(d); //Coger el nombre del padre > A través de alguna clase CSS
+                    let html = '';
+
+                    if(country == 'Argentina') {
+                        html = `<p class="v_tooltip-title">Comparing ${d.Type} between countries</p>
+                        <p class="v_tooltip-text"><b>Argentina: ${d.Argentina}</b></p>
+                        <p class="v_tooltip-text">Brazil: ${d.Brazil}</p>
+                        <p class="v_tooltip-text">Chile: ${d.Chile}</p>
+                        <p class="v_tooltip-text">Colombia: ${d.Colombia}</p>
+                        <p class="v_tooltip-text">Mexico: ${d.Mexico}</p>`
+                    } else if (country == 'Brazil') {
+                        html = `<p class="v_tooltip-title">Comparing ${d.Type} between countries</p>
+                        <p class="v_tooltip-text">Argentina: ${d.Argentina}</p>
+                        <p class="v_tooltip-text"><b>Brazil: ${d.Brazil}</b></p>
+                        <p class="v_tooltip-text">Chile: ${d.Chile}</p>
+                        <p class="v_tooltip-text">Colombia: ${d.Colombia}</p>
+                        <p class="v_tooltip-text">Mexico: ${d.Mexico}</p>`
+                    } else if (country == 'Chile') {
+                        html = `<p class="v_tooltip-title">Comparing ${d.Type} between countries</p>
+                        <p class="v_tooltip-text">Argentina: ${d.Argentina}</p>
+                        <p class="v_tooltip-text">Brazil: ${d.Brazil}</p>
+                        <p class="v_tooltip-text"><b>Chile: ${d.Chile}</b></p>
+                        <p class="v_tooltip-text">Colombia: ${d.Colombia}</p>
+                        <p class="v_tooltip-text">Mexico: ${d.Mexico}</p>`
+                    } else if (country == 'Colombia') {
+                        html = `<p class="v_tooltip-title">Comparing ${d.Type} between countries</p>
+                        <p class="v_tooltip-text">Argentina: ${d.Argentina}</p>
+                        <p class="v_tooltip-text">Brazil: ${d.Brazil}</p>
+                        <p class="v_tooltip-text">Chile: ${d.Chile}</p>
+                        <p class="v_tooltip-text"><b>Colombia: ${d.Colombia}</b></p>
+                        <p class="v_tooltip-text">Mexico: ${d.Mexico}</p>`
+                    } else {
+                        html = `<p class="v_tooltip-title">Comparing ${d.Type} between countries</p>
+                        <p class="v_tooltip-text">Argentina: ${d.Argentina}</p>
+                        <p class="v_tooltip-text">Brazil: ${d.Brazil}</p>
+                        <p class="v_tooltip-text">Chile: ${d.Chile}</p>
+                        <p class="v_tooltip-text">Colombia: ${d.Colombia}</p>
+                        <p class="v_tooltip-text"><b>Mexico: ${d.Mexico}</b></p>`
+                    }
+
+                    tooltip.html(html);
     
                     //Tooltip
                     positionTooltip(window.event, tooltip);
@@ -1337,28 +1434,29 @@ function init48a() {
                 })
                 .transition()
                 .duration(2000)
-                .attr("width", d => Math.abs(x_pre(d[country]) - x_pre(0)))
+                .attr("width", d => Math.abs(x_pre(d[country2]) - x_pre(0)));
         }
 
-        function updateChart(country) {
+        function updateChart(country2) {
             chart
                 .selectAll(".bar")
                 .data(data)
                 .transition()
                 .duration(1500)    
-                .attr('width', d => Math.abs(x_pre(d[country]) - x_pre(0)));
+                .attr('width', d => Math.abs(x_pre(d[country2]) - x_pre(0)));
         }
 
         //Listener
         selectElement.addEventListener('change', function(e) {
-            updateChart(e.target.options[e.target.selectedIndex].value)
+            country = e.target.options[e.target.selectedIndex].value;
+            updateChart(country);
         });
     });
 }
 
 function init48b() {
     //Variables
-    let chartBlock = d3.select('#v_fig48b'), chart, x_pre, x_final, y_pre, y_final, line, paths;
+    let chartBlock = d3.select('#v_fig48b'), chart, x_pre, x_final, y_pre, y_final, line, paths, circles;
     let width, height, margin = {top: 10, right: 5, bottom: 20, left: 25};
     let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRpmJKRvDm4iWZrbYtr2eFi0uQYcV3czLLDugi7M5V3slFP8PJDPHDKyK1Rql6lPUQVMO0AZ8zRk5H6/pub?gid=404906190&single=true&output=csv';
     d3.csv(url, function(error, data) {
@@ -1453,17 +1551,6 @@ function init48b() {
             .attr("stroke-width", 2)
             .attr('d', function(d) {
                 return line(d.data);
-            })
-            .on('mouseenter mousemove', function(d,i,e) {
-                console.log(d); //Meter círculos en esta visualización
-
-                //Tooltip
-                positionTooltip(window.event, tooltip);
-                getInTooltip(tooltip);
-            })
-            .on('mouseout', function(d,i,e) {
-                //Quitamos el tooltip
-                getOutTooltip(tooltip);
             });
 
         paths.attr("stroke-dasharray", 768 + " " + 768)
@@ -1474,6 +1561,43 @@ function init48b() {
             .duration(3000);
 
         //Quedarían los círculos para el tooltip
+        for(let i = 0; i < nestedData.length; i++) {
+            console.log(nestedData[i]);
+            chart.selectAll('.circles')
+                .data(nestedData[i].data)
+                .enter()
+                .append('circle')
+                .attr('class', `circle-${nestedData[i].key}`)
+                .attr("r", 7)
+                .attr("cx", function(d) { return x_pre(d.Year) + x_pre.bandwidth() / 2; })
+                .attr("cy", function(d) { return y_pre(+d.value); })
+                .style("fill", 'transparent')
+                .style("stroke-width", '2')
+                .style("stroke", '#105099')
+                .style('opacity', '0')
+                .on('mouseenter mousemove', function(d,i,e) {
+                    console.log(d); //Meter círculos en esta visualización 
+
+                    //Texto en tooltip
+                    let html = `<p class="v_tooltip-title">${e[i].classList.value.split('-')[1]} in ${d.Year}</p>
+                        <p class="v_tooltip-text">Number of Unicorns: ${d.value}</p></p>`;
+
+                    this.style.opacity = '1';
+
+                    tooltip.html(html);
+
+                    //Tooltip
+                    positionTooltip(window.event, tooltip);
+                    getInTooltip(tooltip);
+                })
+                .on('mouseout', function(d,i,e) {
+                    //Quitamos el tooltip
+                    getOutTooltip(tooltip);
+
+                    this.style.opacity = '0';
+                });
+        }
+        
     });
 }
 
