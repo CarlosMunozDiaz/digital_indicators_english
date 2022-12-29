@@ -835,8 +835,8 @@ function init10() {
                 //Texto en tooltip
                 let html = `<p class="v_tooltip-title">${d.data.Country_EN} (${d.data.Region})</p>
                     <p class="v_tooltip-text">Tertiary Graduates in STEM Fields of Study: ${d.data.stem}%</p>
-                    <p class="v_tooltip-text">Tertiary Graduates in SEM Fields of Study${d.data.sem}%</p>
-                    <p class="v_tooltip-text">Tertiary Graduates in T (TIC) Fields of Study${d.data.t_tic}%</p>`;
+                    <p class="v_tooltip-text">Tertiary Graduates in SEM Fields of Study: ${d.data.sem}%</p>
+                    <p class="v_tooltip-text">Tertiary Graduates in T (TIC) Fields of Study: ${d.data.t_tic}%</p>`;
     
                 tooltip.html(html);
 
@@ -1576,8 +1576,6 @@ function init48b() {
                 .style("stroke", '#105099')
                 .style('opacity', '0')
                 .on('mouseenter mousemove', function(d,i,e) {
-                    console.log(d); //Meter círculos en esta visualización 
-
                     //Texto en tooltip
                     let html = `<p class="v_tooltip-title">${e[i].classList.value.split('-')[1]} in ${d.Year}</p>
                         <p class="v_tooltip-text">Number of Unicorns: ${d.value}</p></p>`;
